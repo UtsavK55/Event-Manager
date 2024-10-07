@@ -1,3 +1,7 @@
+interface Attendee {
+  name: string;
+  email: string;
+}
 
 interface EventDetails {
   title: string;
@@ -5,20 +9,15 @@ interface EventDetails {
   description: string;
   attendeeLimit: number;
   location: string;
+  attendees: Attendee[];
 }
-
 interface ModalProps {
-  isModalVisible: boolean;
-  handleModal: () => void;
   title: string;
   children: React.ReactNode;
 }
 
 interface FormProps {
-  handleModal: () => void;
-  eventsArr: EventDetails[];
-  setEventsArr: React.Dispatch<React.SetStateAction<EventDetails[]>>;
-  initialVal?:{};
+  initialVal?: EventDetails;
 }
 type Events = EventDetails[];
 
@@ -43,18 +42,23 @@ type Validations<T extends {}> = Partial<Record<keyof T, Validation>>;
 
 interface EventCardProps {
   event: EventDetails;
-  isModalVisible: boolean;
-  handleModal: ()=>void;
-  eventsArr: EventDetails[];
-  setEventsArr: React.Dispatch<React.SetStateAction<EventDetails[]>>;
 }
 
 interface ButtonProps {
   title: React.ReactNode;
-  handleButton: ()=>void;
+  onClick: () => void;
 }
 
-interface DatePickerProps{
+interface DatePickerProps {
   startDate: Date | null;
-  handleDateTimeChange:(date:Date|null)=>void;
+  handleDateTimeChange: (date: Date | null) => void;
+}
+
+interface EventContextType {
+  eventsArr: Events;
+  setEventsArr: React.Dispatch<React.SetStateAction<Events>>;
+}
+interface ModalContextType {
+  isModalVisible: boolean;
+  setIsModalVisible: React.Dispatch<React.SetStateAction<boolean>>;
 }

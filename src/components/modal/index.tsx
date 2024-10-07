@@ -1,18 +1,20 @@
 import { useEffect, useRef } from "react";
+import { useModalContext } from "../../context/ModalContext";
 
-const Modal = ({
-  isModalVisible,
-  handleModal,
-  title,
-  children,
-}: ModalProps) => {
+const Modal = ({ title, children }: ModalProps) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const { isModalVisible, setIsModalVisible } = useModalContext();
+
+  const handleModal = () => {
+    setIsModalVisible(!isModalVisible);
+  };
 
   useEffect(() => {
     if (modalRef.current) {
       modalRef.current.style.display = isModalVisible ? "flex" : "none";
     }
   }, [isModalVisible]);
+
   return (
     <>
       <div
